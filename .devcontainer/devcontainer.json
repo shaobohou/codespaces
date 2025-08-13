@@ -19,5 +19,6 @@
         "GitHub.copilot"
       ]
     }
-  }
+  },
+  "postCreateCommand": "pip install uv"
 }
