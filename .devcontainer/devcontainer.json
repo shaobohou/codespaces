@@ -20,5 +20,5 @@
       ]
     }
   },
-  "postCreateCommand": "pip install uv"
+  "postCreateCommand": "pip install uv && uv tool install llm && llm install llm-github-models && llm models default github/gpt-4.1"
 }
