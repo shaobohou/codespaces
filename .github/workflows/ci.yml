@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.12"
+
+      - name: Run ruff lint
+        if: ${{ hashFiles('**/*.py') != '' }}
+        run: uvx --from ruff ruff check
+
+      - name: Run ruff format check
+        if: ${{ hashFiles('**/*.py') != '' }}
+        run: uvx --from ruff ruff format --check
+
+      - name: Run pytest (if tests present)
+        if: ${{ hashFiles('tests/**/*.py') != '' }}
+        run: uvx --from pytest pytest
