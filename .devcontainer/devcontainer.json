@@ -1,24 +1,32 @@
 {
-  "name": "Python 3.13",
-  "image": "mcr.microsoft.com/devcontainers/python:3.13-bullseye",
+  "name": "codespaces",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+  "remoteUser": "vscode",
   "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/node:1": {
-      "version": "latest"
-    }
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers-contrib/features/uv:1": {}
   },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
   "customizations": {
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.linting.enabled": true
+        "python.linting.enabled": true,
+        "python.linting.ruffEnabled": true
       },
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ms-python.vscode-python-envs",
-        "GitHub.copilot"
+        "ms-toolsai.jupyter",
+        "charliermarsh.ruff",
+        "dbaeumer.vscode-eslint",
+        "anthropic.claude-code",
+        "openai.chatgpt"
       ]
     }
-  },
-  "postCreateCommand": "pip install uv"
+  }
 }
