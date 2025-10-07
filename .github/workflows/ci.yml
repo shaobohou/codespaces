@@ -18,14 +18,29 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Detect Python files
+        id: detect-python
+        run: |
+          if git ls-files '*.py' | grep -q .; then
+            echo "has_python=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "has_python=false" >>"$GITHUB_OUTPUT"
+          fi
+
+          if git ls-files 'test_*.py' 'tests/**/*.py' | grep -q .; then
+            echo "has_tests=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "has_tests=false" >>"$GITHUB_OUTPUT"
+          fi
+
       - name: Run ruff lint
-        if: ${{ hashFiles('**/*.py') != 'd41d8cd98f00b204e9800998ecf8427e' }}
+        if: ${{ steps.detect-python.outputs.has_python == 'true' }}
         run: uvx --from ruff ruff check
 
       - name: Run ruff format check
-        if: ${{ hashFiles('**/*.py') != 'd41d8cd98f00b204e9800998ecf8427e' }}
+        if: ${{ steps.detect-python.outputs.has_python == 'true' }}
         run: uvx --from ruff ruff format --check
 
       - name: Run pytest (if tests present)
-        if: ${{ hashFiles('tests/**/*.py') != 'd41d8cd98f00b204e9800998ecf8427e' }}
+        if: ${{ steps.detect-python.outputs.has_tests == 'true' }}
         run: uvx --from pytest pytest
