@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-uv tool install --force ruff
+uv tool install ruff
 
 # Install all runtime and development dependencies for the devcontainer
 # environment. This mirrors the instructions in CLAUDE.md so both local and
@@ -14,4 +14,3 @@ npm install -g \
   @google/gemini-cli \
   @github/copilot \
   eslint
-

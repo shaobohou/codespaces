@@ -19,13 +19,13 @@ jobs:
           python-version: "3.12"
 
       - name: Run ruff lint
-        if: ${{ hashFiles('**/*.py') != '' }}
+        if: ${{ hashFiles('**/*.py') != 'd41d8cd98f00b204e9800998ecf8427e' }}
         run: uvx --from ruff ruff check
 
       - name: Run ruff format check
-        if: ${{ hashFiles('**/*.py') != '' }}
+        if: ${{ hashFiles('**/*.py') != 'd41d8cd98f00b204e9800998ecf8427e' }}
         run: uvx --from ruff ruff format --check
 
       - name: Run pytest (if tests present)
-        if: ${{ hashFiles('tests/**/*.py') != '' }}
+        if: ${{ hashFiles('tests/**/*.py') != 'd41d8cd98f00b204e9800998ecf8427e' }}
         run: uvx --from pytest pytest
